@@ -18,7 +18,7 @@ export interface IStorage {
   setForecast(symbol: string, forecast: PriceForecast): void;
 }
 
-// Real market data — Friday March 13, 2026 close
+// Real market data - Friday March 13, 2026 close
 const stockData: StockQuote[] = [
   { symbol: "NVDA", name: "NVIDIA Corporation", price: 180.25, change: -2.91, changesPercentage: -1.59, marketCap: 4380976286411, pe: 36.86, eps: 4.89, volume: 156223205, avgVolume: 175286096, dayLow: 179.94, dayHigh: 186.09, yearLow: 86.62, yearHigh: 212.19, previousClose: 183.16, open: 184.91, dividendYieldTTM: 0, sector: "Semiconductors" },
   { symbol: "AAPL", name: "Apple Inc.", price: 250.12, change: -5.64, changesPercentage: -2.21, marketCap: 3676244992996, pe: 31.62, eps: 7.91, volume: 34193754, avgVolume: 47965288, dayLow: 249.88, dayHigh: 256.33, yearLow: 169.21, yearHigh: 288.62, previousClose: 255.76, open: 255.40, dividendYieldTTM: 0, sector: "Consumer Electronics" },
@@ -37,7 +37,6 @@ const stockData: StockQuote[] = [
   { symbol: "ADBE", name: "Adobe Inc.", price: 249.32, change: -20.46, changesPercentage: -7.58, marketCap: 102345860000, pe: 14.93, eps: 16.70, volume: 17378071, avgVolume: 5388221, dayLow: 247.19, dayHigh: 256.70, yearLow: 244.28, yearHigh: 422.95, previousClose: 269.78, open: 248.81, dividendYieldTTM: 0, sector: "Creative Software" },
 ];
 
-// Historical price data (3-month, Dec 2025 - Mar 2026)
 const priceHistories: Record<string, PricePoint[]> = {
   "AAPL": [
     { date: "2025-12-15", close: 274.11 }, { date: "2025-12-16", close: 274.61 }, { date: "2025-12-17", close: 271.84 },
@@ -258,7 +257,6 @@ const mostActive: MarketMover[] = [
   { symbol: "AMD", name: "Advanced Micro Devices", price: 193.39, changePercent: -2.20, change: -4.35 },
 ];
 
-// Real analyst consensus data from March 14, 2026
 const analystTargets: AnalystTarget[] = [
   { symbol: "NVDA", targetHigh: 360, targetLow: 215, targetConsensus: 275.30, targetMedian: 275, currentPrice: 180.25, upside: 52.73, consensusRating: "Strong Buy", totalRatings: 33, bullishPct: 97, neutralPct: 3, bearishPct: 0 },
   { symbol: "AAPL", targetHigh: 350, targetLow: 248, targetConsensus: 305.63, targetMedian: 315, currentPrice: 250.12, upside: 22.19, consensusRating: "Buy", totalRatings: 20, bullishPct: 75, neutralPct: 20, bearishPct: 5 },
@@ -280,41 +278,15 @@ const analystTargets: AnalystTarget[] = [
 export class MemStorage implements IStorage {
   private aiAnalyses: Map<string, AIAnalysis> = new Map();
 
-  getStocks(): StockQuote[] {
-    return stockData;
-  }
-
-  getStock(symbol: string): StockQuote | undefined {
-    return stockData.find(s => s.symbol === symbol);
-  }
-
-  getPriceHistory(symbol: string): PricePoint[] {
-    return priceHistories[symbol] || [];
-  }
-
-  getGainers(): MarketMover[] {
-    return gainers;
-  }
-
-  getLosers(): MarketMover[] {
-    return losers;
-  }
-
-  getMostActive(): MarketMover[] {
-    return mostActive;
-  }
-
-  getSentiment(): MarketSentiment {
-    return { sentiment: "BEARISH", marketStatus: "closed" };
-  }
-
-  getAnalystTargets(): AnalystTarget[] {
-    return analystTargets;
-  }
-
-  getAnalystTarget(symbol: string): AnalystTarget | undefined {
-    return analystTargets.find(t => t.symbol === symbol);
-  }
+  getStocks(): StockQuote[] { return stockData; }
+  getStock(symbol: string): StockQuote | undefined { return stockData.find(s => s.symbol === symbol); }
+  getPriceHistory(symbol: string): PricePoint[] { return priceHistories[symbol] || []; }
+  getGainers(): MarketMover[] { return gainers; }
+  getLosers(): MarketMover[] { return losers; }
+  getMostActive(): MarketMover[] { return mostActive; }
+  getSentiment(): MarketSentiment { return { sentiment: "BEARISH", marketStatus: "closed" }; }
+  getAnalystTargets(): AnalystTarget[] { return analystTargets; }
+  getAnalystTarget(symbol: string): AnalystTarget | undefined { return analystTargets.find(t => t.symbol === symbol); }
 
   getDataTimestamp(): DataTimestamp {
     return {
@@ -324,27 +296,13 @@ export class MemStorage implements IStorage {
     };
   }
 
-  getAIAnalysis(symbol: string): AIAnalysis | undefined {
-    return this.aiAnalyses.get(symbol);
-  }
-
-  setAIAnalysis(symbol: string, analysis: AIAnalysis): void {
-    this.aiAnalyses.set(symbol, analysis);
-  }
-
-  getAllAIAnalyses(): AIAnalysis[] {
-    return Array.from(this.aiAnalyses.values());
-  }
+  getAIAnalysis(symbol: string): AIAnalysis | undefined { return this.aiAnalyses.get(symbol); }
+  setAIAnalysis(symbol: string, analysis: AIAnalysis): void { this.aiAnalyses.set(symbol, analysis); }
+  getAllAIAnalyses(): AIAnalysis[] { return Array.from(this.aiAnalyses.values()); }
 
   private forecastCache: Map<string, PriceForecast> = new Map();
-
-  getForecast(symbol: string): PriceForecast | undefined {
-    return this.forecastCache.get(symbol);
-  }
-
-  setForecast(symbol: string, forecast: PriceForecast): void {
-    this.forecastCache.set(symbol, forecast);
-  }
+  getForecast(symbol: string): PriceForecast | undefined { return this.forecastCache.get(symbol); }
+  setForecast(symbol: string, forecast: PriceForecast): void { this.forecastCache.set(symbol, forecast); }
 }
 
 export const storage = new MemStorage();

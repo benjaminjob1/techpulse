@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm install",
+  "framework": null,
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/api/stocks/:symbol/history", "destination": "/api/stock-detail?symbol=:symbol&type=history" },
+    { "source": "/api/stocks/:symbol", "destination": "/api/stock-detail?symbol=:symbol" },
+    { "source": "/api/stocks", "destination": "/api/stocks" },
+    { "source": "/api/market/gainers", "destination": "/api/market?type=gainers" },
+    { "source": "/api/market/losers", "destination": "/api/market?type=losers" },
+    { "source": "/api/market/active", "destination": "/api/market?type=active" },
+    { "source": "/api/market/sentiment", "destination": "/api/market?type=sentiment" },
+    { "source": "/api/analyst/targets", "destination": "/api/analyst" },
+    { "source": "/api/data/timestamp", "destination": "/api/data?type=timestamp" },
+    { "source": "/api/data/refresh", "destination": "/api/data?type=refresh" },
+    { "source": "/api/ai/analysis/:symbol", "destination": "/api/ai?symbol=:symbol&type=analysis" },
+    { "source": "/api/ai/analyses", "destination": "/api/ai?type=analyses" },
+    { "source": "/api/ai/analyze-all", "destination": "/api/ai?type=analyze-all" },
+    { "source": "/api/forecast/:symbol", "destination": "/api/forecast?symbol=:symbol" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

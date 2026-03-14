@@ -12,7 +12,6 @@ export async function generateForecast(
     ? ((stock.price - stock.yearLow) / (stock.yearHigh - stock.yearLow) * 100).toFixed(1)
     : "50";
 
-  // Compute simple moving averages from history if available
   let trendInfo = "";
   if (history && history.length >= 20) {
     const recent = history.slice(-20);
@@ -54,7 +53,7 @@ ${target ? `ANALYST CONSENSUS:
 - Target Range: $${target.targetLow} - $${target.targetHigh}
 - Bulls: ${target.bullishPct}%, Neutral: ${target.neutralPct}%, Bears: ${target.bearishPct}%` : ""}
 
-Generate price forecasts for 5 time horizons. Be realistic — use the analyst targets, fundamentals, trend data, and sector conditions. Keep predictions grounded.
+Generate price forecasts for 5 time horizons. Be realistic -- use the analyst targets, fundamentals, trend data, and sector conditions.
 
 Respond in JSON only, no markdown. Use this exact structure:
 {
@@ -72,9 +71,8 @@ Respond in JSON only, no markdown. Use this exact structure:
 
 Guidelines:
 - 1W forecast should be close to current price (typical weekly moves are 1-5%)
-- Wider ranges for longer horizons (uncertainty grows with time)
-- Analyst targets are typically 12-month targets — factor into 6M and 1Y
-- P/E extremes suggest mean reversion risk
+- Wider ranges for longer horizons
+- Analyst targets are typically 12-month targets
 - low/mid/high are price targets in dollars (not percentages)
 - Keep riskFactors concise (under 10 words each), 3-5 items
 - Do NOT include disclaimers in the JSON fields`;

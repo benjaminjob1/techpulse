@@ -52,10 +52,10 @@ Respond in JSON only, no markdown. Use this exact structure:
 
 Important guidelines:
 - Base your analysis on the fundamentals provided (P/E, EPS, analyst targets, 52-week position, volume)
-- Be specific about WHY — reference actual numbers
+- Be specific about WHY -- reference actual numbers
 - Keep each field concise (summary under 60 words, bull/bear cases under 40 words each)
 - Key factors should be 3-5 short phrases (under 8 words each)
-- This is NOT financial advice — it's educational analysis
+- This is NOT financial advice -- it's educational analysis
 - Do not include any disclaimers in the JSON fields themselves`;
 
   const response = await client.messages.create({
@@ -64,13 +64,11 @@ Important guidelines:
     messages: [{ role: "user", content: prompt }],
   });
 
-  // Extract text from response
   const text = response.content
     .filter((b): b is Anthropic.TextBlock => b.type === "text")
     .map(b => b.text)
     .join("");
 
-  // Parse JSON from response (handle potential markdown wrapping)
   let jsonStr = text.trim();
   if (jsonStr.startsWith("```")) {
     jsonStr = jsonStr.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");

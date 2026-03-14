@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Stock quote data
 export const stockQuoteSchema = z.object({
   symbol: z.string(),
   name: z.string(),
@@ -24,7 +23,6 @@ export const stockQuoteSchema = z.object({
 
 export type StockQuote = z.infer<typeof stockQuoteSchema>;
 
-// Price history point
 export const pricePointSchema = z.object({
   date: z.string(),
   close: z.number(),
@@ -32,7 +30,6 @@ export const pricePointSchema = z.object({
 
 export type PricePoint = z.infer<typeof pricePointSchema>;
 
-// Market mover (gainer/loser)
 export const marketMoverSchema = z.object({
   symbol: z.string(),
   name: z.string(),
@@ -43,7 +40,6 @@ export const marketMoverSchema = z.object({
 
 export type MarketMover = z.infer<typeof marketMoverSchema>;
 
-// Market sentiment
 export const marketSentimentSchema = z.object({
   sentiment: z.enum(["BULLISH", "BEARISH", "NEUTRAL"]),
   marketStatus: z.string(),
@@ -51,7 +47,6 @@ export const marketSentimentSchema = z.object({
 
 export type MarketSentiment = z.infer<typeof marketSentimentSchema>;
 
-// Analyst target — updated with consensus data
 export const analystTargetSchema = z.object({
   symbol: z.string(),
   targetHigh: z.number(),
@@ -69,7 +64,6 @@ export const analystTargetSchema = z.object({
 
 export type AnalystTarget = z.infer<typeof analystTargetSchema>;
 
-// AI stock analysis
 export const aiAnalysisSchema = z.object({
   symbol: z.string(),
   signal: z.enum(["BUY", "SELL", "HOLD"]),
@@ -83,17 +77,16 @@ export const aiAnalysisSchema = z.object({
 
 export type AIAnalysis = z.infer<typeof aiAnalysisSchema>;
 
-// AI price forecast
 export const priceForecastSchema = z.object({
   symbol: z.string(),
   currentPrice: z.number(),
   forecasts: z.array(z.object({
-    period: z.string(), // "1W", "1M", "3M", "6M", "1Y"
-    label: z.string(), // "1 Week", "1 Month", etc.
+    period: z.string(),
+    label: z.string(),
     low: z.number(),
     mid: z.number(),
     high: z.number(),
-    changePercent: z.number(), // mid vs current
+    changePercent: z.number(),
     confidence: z.enum(["HIGH", "MEDIUM", "LOW"]),
   })),
   methodology: z.string(),
@@ -104,7 +97,6 @@ export const priceForecastSchema = z.object({
 
 export type PriceForecast = z.infer<typeof priceForecastSchema>;
 
-// Data timestamp
 export const dataTimestampSchema = z.object({
   lastUpdated: z.string(),
   marketStatus: z.string(),
