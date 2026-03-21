@@ -12,7 +12,7 @@ import {
   ArrowUpRight, ArrowDownRight, Minus, Target, AlertTriangle,
   Zap, DollarSign, LineChart, Search, Brain, RefreshCw,
   ThumbsUp, ThumbsDown, Pause, Sparkles, Clock, Grid3X3,
-  ChevronRight, Flame
+  ChevronRight, Flame, Home
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -618,6 +618,16 @@ export default function Dashboard() {
 
             {/* Sentiment badge */}
             {sentiment && <SentimentIndicator sentiment={sentiment} />}
+
+            {/* Home button */}
+            <a
+              href="https://hub.benjob.me"
+              className="p-2 rounded-lg hover:bg-muted/50 transition-colors text-blue-500"
+              aria-label="Go to Hub"
+              title="Go to Hub"
+            >
+              <Home className="w-4 h-4" />
+            </a>
 
             {/* Theme toggle */}
             <button
