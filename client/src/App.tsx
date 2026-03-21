@@ -8,6 +8,7 @@ import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
 import StockDetail from "@/pages/stock-detail";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 function AppRouter() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Router hook={useHashLocation}>
             <AppRouter />
           </Router>
+          <Analytics />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
